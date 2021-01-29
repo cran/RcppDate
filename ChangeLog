@@ -1,3 +1,35 @@
+2021-01-29  Dirk Eddelbuettel  <edd@debian.org>
+
+	* DESCRIPTION (Date, Version): Release 0.0.2
+	(Description): Slightly reworded
+
+	* inst/include/date.h: Another upstream commit since 0.3.0
+
+	* README.md: Added badge for downloads
+
+2021-01-03  Dirk Eddelbuettel  <edd@debian.org>
+
+	* inst/include/date.h: Upstream 0.3.0 plus more recent commits
+	* inst/include/julian.h: Ditto
+	* inst/include/ptz.h: Ditto
+	* inst/include/solar_hijri.h: Ditto
+	* inst/include/tz_private.h: Ditto
+	* inst/include/tz.h: Ditto
+
+        * .github/workflows/ci.yaml: Add CI runner using r-ci
+	* README.md: Add new badge
+
+2020-06-19  Dirk Eddelbuettel  <edd@debian.org>
+
+	* .travis.yml: Determine package name and version from DESCRIPTION,
+	switch to bionic
+
+2020-03-24  Dirk Eddelbuettel  <edd@debian.org>
+
+	* README.md: Badges for CRAN version, dependencies and last commit
+
+	* inst/NEWS.Rd: Added
+
 2020-03-17  Dirk Eddelbuettel  <edd@debian.org>
 
 	* DESCRIPTION (Date, Version): Initial CRAN release 0.0.1

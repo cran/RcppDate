@@ -2,7 +2,12 @@
 ## RcppDate: date C++ header library for R
 
 [![Build Status](https://travis-ci.org/eddelbuettel/rcppdate.svg)](https://travis-ci.org/eddelbuettel/rcppdate)
+[![CI](https://github.com/eddelbuettel/rcppdate/workflows/ci/badge.svg)](https://github.com/eddelbuettel/rcppdate/actions?query=workflow%3Aci)
 [![License](https://eddelbuettel.github.io/badges/GPL2+.svg)](http://www.gnu.org/licenses/gpl-2.0.html)
+[![CRAN](http://www.r-pkg.org/badges/version/RcppDate)](https://cran.r-project.org/package=RcppDate)
+[![Dependencies](https://tinyverse.netlify.com/badge/RcppDate)](https://cran.r-project.org/package=RcppDate)
+[![Downloads](https://cranlogs.r-pkg.org/badges/RcppDate?color=brightgreen)](https://www.r-pkg.org/pkg/RcppDate)
+[![Last Commit](https://img.shields.io/github/last-commit/eddelbuettel/rcppdate)](https://github.com/eddelbuettel/rcppdate)
 
 ### About
 
@@ -25,7 +30,7 @@ compile-time instantiations of `year_month_day` types:
   constexpr auto x3 = 22_d/March/2015;
 ```
 
-See the file [inst/examples/year_month_day.cpp](inst/examples/year_month_day.cpp) for 
+See the file [inst/examples/year_month_day.cpp](inst/examples/year_month_day.cpp) for
 the complete example, and the upstream documentation for full details.
 
 ### Limitations
