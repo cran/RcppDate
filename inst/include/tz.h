@@ -49,12 +49,12 @@
 
 #ifndef HAS_REMOTE_API
 #  if USE_OS_TZDB == 0
-#    ifdef _WIN32
+#    if defined _WIN32 || defined __ANDROID__
 #      define HAS_REMOTE_API 0
 #    else
 #      define HAS_REMOTE_API 1
 #    endif
-#  else  // HAS_REMOTE_API makes no since when using the OS timezone database
+#  else  // HAS_REMOTE_API makes no sense when using the OS timezone database
 #    define HAS_REMOTE_API 0
 #  endif
 #endif
@@ -138,6 +138,13 @@ namespace date
 {
 
 enum class choose {earliest, latest};
+
+#if defined(BUILD_TZ_LIB)
+# if defined(ANDROID) || defined(__ANDROID__)
+struct tzdb;
+static std::unique_ptr<tzdb> init_tzdb();
+# endif // defined(ANDROID) || defined(__ANDROID__)
+#endif // defined(BUILD_TZ_LIB)
 
 namespace detail
 {
@@ -231,8 +238,8 @@ nonexistent_local_time::make_msg(local_time<Duration> tp, const local_info& i)
        << i.first.abbrev << " and\n"
        << local_seconds{i.second.begin.time_since_epoch()} + i.second.offset << ' '
        << i.second.abbrev
-       << " which are both equivalent to\n"
-       << i.first.end << " UTC";
+       << " which are both equivalent to\n";
+    date::operator<<(os, i.first.end) << " UTC";
     return os.str();
 }
 
@@ -821,6 +828,12 @@ public:
 
 #if !USE_OS_TZDB
     DATE_API void add(const std::string& s);
+#else
+# if defined(BUILD_TZ_LIB)
+#  if defined(ANDROID) || defined(__ANDROID__)
+    friend std::unique_ptr<tzdb> init_tzdb();
+#  endif // defined(ANDROID) || defined(__ANDROID__)
+# endif // defined(BUILD_TZ_LIB)
 #endif  // !USE_OS_TZDB
 
 private:
@@ -844,8 +857,11 @@ private:
     DATE_API void
     load_data(std::istream& inf, std::int32_t tzh_leapcnt, std::int32_t tzh_timecnt,
                                  std::int32_t tzh_typecnt, std::int32_t tzh_charcnt);
+# if defined(ANDROID) || defined(__ANDROID__)
+    void parse_from_android_tzdata(std::ifstream& inf, const std::size_t off);
+# endif // defined(ANDROID) || defined(__ANDROID__)
 #else  // !USE_OS_TZDB
-    DATE_API sys_info   get_info_impl(sys_seconds tp, int timezone) const;
+    DATE_API sys_info   get_info_impl(sys_seconds tp, int tz_int) const;
     DATE_API void adjust_infos(const std::vector<detail::Rule>& rules);
     DATE_API void parse_info(std::istream& in);
 #endif  // !USE_OS_TZDB
